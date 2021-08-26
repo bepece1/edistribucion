@@ -30,6 +30,27 @@ value_template: "{{ state_attr('sensor.eds_power_consumption','Porcentaje actual
 ```
 Thanks to bepece1
 
+
+# ¿Se pueden crear sensores para el panel de energía con los atributos? 
+Sí, se pueden crear de esta forma:
+
+```
+template:
+  - sensor:
+      - name: "eds_meter_reading"
+        unit_of_measurement: "kWh"
+        state_class: total_increasing
+        device_class: "energy"
+        state: >
+          {% if state_attr('sensor.eds_power_consumption','Totalizador') is not none %}
+          {{ state_attr('sensor.eds_power_consumption','Totalizador')|replace('.','')|replace(' kWh','')|float }}
+          {% else %}
+          unknown
+          {% endif %}
+        attributes:
+          last_reset: '1970-01-01T00:00:00+00:00'
+```
+
 TODO
 =======
 * Integrar el backend como dependencia pip
