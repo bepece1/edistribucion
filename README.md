@@ -13,6 +13,7 @@ sensor:
     username: "username sin comillas"
     password: "password sin comillas"
     #scan_interval: 60 #This is in seconds. Mejor no usar para evitar baneos
+    #cups: XXXXX #Establecer cuando se tienen varios CUPS para selecionar de cual de ellos obtener los datos
 ```
 
  
