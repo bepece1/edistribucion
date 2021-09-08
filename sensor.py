@@ -10,17 +10,19 @@ SCAN_INTERVAL = timedelta(minutes=10)
 def setup_platform(hass, config, add_entities, discovery_info=None):
 
     """Set up the sensor platform."""
-    add_entities([EDSSensor(config['username'],config['password'])])
+    add_entities([EDSSensor(config)])
 
 class EDSSensor(Entity):
     """Representation of a Sensor."""
 
-    def __init__(self,usr,pw):
+    def __init__(self, config):
         """Initialize the sensor."""
         self._state = None
         self._attributes = {}
-        self._usr=usr
-        self._pw=pw
+        self._usr=config['username']
+        self._pw=config['password']
+        if 'cups' in config:
+            self._cups = config['cups']
 
     @property
     def name(self):
@@ -47,8 +49,16 @@ class EDSSensor(Entity):
         edis = Edistribucion(self._usr,self._pw)
         edis.login()
         r = edis.get_cups()
-        cups = r['data']['lstCups'][0]['Id']
-        meter = edis.get_meter(cups)
+        if self._cups:
+            for c in r['data']['lstCups']:
+                if c['Name'] == self._cups:
+                    cups_id = c['Id']
+        else:
+            cups_id = r['data']['lstCups'][0]['Id']
+            self._cups = r['data']['lstCups'][0]['Name']
+        
+        _LOGGER.debug(f'Fetching data for CUPS={self._cups} with Id={cups_id}')
+        meter = edis.get_meter(cups_id)
         _LOGGER.debug(meter)
         _LOGGER.debug(meter['data']['potenciaActual'])
         attributes = {}
