@@ -49,11 +49,12 @@ class EDSSensor(Entity):
         edis = Edistribucion(self._usr,self._pw)
         edis.login()
         r = edis.get_cups()
-        if self._cups:
+
+        try:
             for c in r['data']['lstCups']:
                 if c['Name'] == self._cups:
                     cups_id = c['Id']
-        else:
+        except AttributeError:
             cups_id = r['data']['lstCups'][0]['Id']
             self._cups = r['data']['lstCups'][0]['Name']
         
