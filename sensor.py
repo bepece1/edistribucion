@@ -60,8 +60,7 @@ class EDSSensor(Entity):
         
         _LOGGER.debug(f'Fetching data for CUPS={self._cups} with Id={cups_id}')
         meter = edis.get_meter(cups_id)
-        _LOGGER.debug(meter)
-        _LOGGER.debug(meter['data']['potenciaActual'])
+        _LOGGER.debug(meter['data'])
         attributes = {}
         attributes['Estado ICP'] = meter['data']['estadoICP']
         attributes['Totalizador'] = str(meter['data']['totalizador']) + ' kWh'
