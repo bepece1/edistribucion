@@ -16,6 +16,10 @@ sensor:
     #cups: XXXXX #Establecer cuando se tienen varios CUPS para selecionar de cual de ellos obtener los datos
 ```
 
+Es importante no poner un tiempo muy bajo para que no nos encontremos con cortes en las mediciones. Esto será así hasta que edistribución presente una api. 
+
+![image](https://user-images.githubusercontent.com/1789503/133009041-8b99f7d9-5768-425f-8b04-09bbdefd031e.png)
+
  
 # ¿Se pueden crear sensores con los atributos? 
 Sí, se pueden crear de esta forma:
