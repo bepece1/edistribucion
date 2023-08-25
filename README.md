@@ -1,6 +1,6 @@
 # edistribucion
 Este es un proyecto apra poder consumir la API de e-distribución (Endesa distribución) y exponerla como un sensor dentro de Home Assistant. 
-Actualmente está usando como backend el crawler de trocotronic. Por defecto está configurado para hacer update de nuestro contrador de edistribución cada 10 minutos. Esto es configurable en el configuration.yml no obstante no es recomendable dado que puede dar lugar a baneos por parte de la distribuidora. 
+Actualmente está usando como backend el crawler de trocotronic (versiones >= 0.7.0). Por defecto está configurado para hacer update de nuestro contrador de edistribución cada 10 minutos. Esto es configurable en el configuration.yml no obstante no es recomendable dado que puede dar lugar a baneos por parte de la distribuidora. 
 
 Como instalarlo:
 
@@ -33,8 +33,6 @@ entity_id: sensor.eds_power_consumption
 unit_of_measurement: '%'
 value_template: "{{ state_attr('sensor.eds_power_consumption','Porcentaje actual')|replace(',','.')|replace('%','')|float }}"
 ```
-Thanks to bepece1
-
 
 # ¿Se pueden crear sensores para el panel de energía con los atributos? 
 Sí, se pueden crear de esta forma:
@@ -63,4 +61,4 @@ TODO
 
 Agradecimientos
 =======
-Agradecer a @trocotronic el trabajo de implementar el crwler para extraer los datos desde eds y a Miguel Macias por echar una mano animando a subir el código actualizado. 
+Agradecer a @trocotronic el trabajo de implementar el crwler para extraer los datos desde eds y a @jagalindo por usar como plantilla su trabajo para anteriores versiones del backend de trocotronic
